@@ -1,0 +1,76 @@
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="static/form_style.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var backButton = document.getElementById("back-button");
+
+            backButton.addEventListener('click', function() {
+                // Reemplaza la siguiente URL con la URL de la página de búsqueda
+                window.location.href = '/';
+            });
+        });
+    </script>
+</head>
+<script>
+    backButton.addEventListener('click', function() {
+      // Reemplaza la siguiente URL con la URL de la página de búsqueda
+      window.location.href = 'index.html';
+    });
+  </script>
+<body>
+  <h1>Resultados</h1>
+  <h3>Mejores precios por supermercado:</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Supermercado</th>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Promo</th>
+        <th>URL</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in mejores_precios_super.iterrows() %}
+        <tr>
+          <td>{{ row[1]['supermercado'] }}</td>
+          <td>{{ row[1]['nombre'] }}</td>
+          <td>{{ row[1]['precio'] }}</td>
+          <td>{{ row[1]['promo'] }}</td>
+          <td>{{ row[1]['url'] }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h3>Mejores precios por lista de productos:</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Supermercado</th>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Promo</th>
+        <th>URL</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in mejores_precios_lista.iterrows() %}
+        <tr>
+            <td>{{ row[1]['supermercado'] }}</td>
+            <td>{{ row[1]['nombre'] }}</td>
+            <td>{{ row[1]['precio'] }}</td>
+            <td>{{ row[1]['promo'] }}</td>
+            <td>{{ row[1]['url'] }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="back-button-container">
+    <button id="back-button">Volver a la búsqueda</button>
+  </div>
+</body>
+</html>
+

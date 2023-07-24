@@ -1,0 +1,11 @@
+https://www.cotodigital3.com.ar/sitios/cdigi/browse/
+
+COSAS A AGREGAR:
+
+elemento promo cuotas, añadirlo a las promo y dar opcion cuotas
+
+Revisar la opcion de poner un filtro promo, por producto, si se desactiva
+lo que hacemos es mostrar el precio del producto mas barato, pero sin tener en cuenta la promo
+sirve para los casos que tenemos un 3x2 o 4x3, pero solo queremos llevar 1
+
+https://www.cotodigital3.com.ar/sitios/cdigi/browse/catalogo-almac%C3%A9n/_/N-8pub5z?Dy=1&Nf=product.endDate%7CGTEQ+1.6898976E12%7C%7Cproduct.startDate%7CLTEQ+1.6898976E12&No=ACA DESDE CUAL MOSTRAR&Nr=AND%28product.language%3Aespa%C3%B1ol%2Cproduct.sDisp_200%3A1004%2Cproduct.siteId%3ACotoDigital%2COR%28product.siteId%3ACotoDigital%29%29&Nrpp=ACA CUANTOS MOSTRAR&Nty=1&_D%3AidSucursal=+&_D%3AsiteScope=+&atg_store_searchInput=l&idSucursal=200&siteScope=ok

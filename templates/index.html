@@ -1,0 +1,39 @@
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="static/styles.css">
+    <script>
+        function deshabilitarInput(input) {
+          input.disabled = true; // Deshabilita el input
+          input.classList.add("desactivado"); // Agrega la clase "desactivado"
+          input.value = "Botón deshabilitado"; // Cambia el valor del input
+        }
+    </script>
+</head>
+<body>
+  <h1>Super Ofertas</h1>
+  <h2>Elegí lo que queres, nosotros te lo encontramos más barato</h2>
+  <form action="/scrape" method="POST">
+    <p>Carga los productos separandolos con ", " Tene en cuenta que cuanto más especifico sos, mejores van a ser los resultados</p>
+    <p>Ejemplo de busqueda: leche entera 1lts, yerba rosamonte 1kg, fernet branca 750ml</p>
+    <label for="productos_lista" class="lista_prod">Lista de productos:</label><br>
+    <input type="text" id="productos_lista" name="productos_lista"><br><br>
+    <label for="navegador">Navegador:</label><br>
+    <div class="radio-container">
+        <div class="radio-item">
+          <input type="radio" id="navegador-chrome" name="navegador" value="Chrome">
+          <label for="navegador-chrome">Chrome</label>
+        </div>
+        <div class="radio-item">
+          <input type="radio" id="navegador-edge" name="navegador" value="Edge">
+          <label for="navegador-edge">Edge</label>
+        </div>
+        <div class="radio-item">
+          <input type="radio" id="navegador-firefox" name="navegador" value="Firefox">
+          <label for="navegador-firefox">Firefox</label>
+        </div>
+      </div>
+    <input type="submit" value="Buscar" onclick="deshabilitarInput(this)" class="activado">
+  </form>
+</body>
+</html>

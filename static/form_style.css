@@ -1,0 +1,51 @@
+body {
+    font-family: 'Roboto', sans-serif; /* Importa la fuente Roboto */
+    text-align: -webkit-center;
+    background-color: #444654;
+    margin: 5%;
+  }
+  
+  h1, h3 {
+    text-align: center; /* Centra los encabezados */
+    color: #fff;
+    margin: 3%;
+  }
+  
+  table {
+    width: 70%; 
+    border-collapse: collapse; /* Fusiona los bordes de las celdas */
+    margin-top: 20px; /* Espacio superior para la tabla */
+    text-align: center;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  th, td {
+    padding: 10px; /* Espacio interno de las celdas */
+    border: 1px solid #383945; /* Borde de las celdas */
+    background-color: #8185a0;
+  }
+  
+  th {
+    background-color: #4f5162; /* Color de fondo del encabezado similar al chat de GPT */
+    font-weight: bold; /* Texto en negrita para el encabezado */
+  }
+
+
+  #back-button {
+    margin: 40px;
+    width: 300px;
+    height: 40px;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #8185a0;
+    color: #fff;
+    cursor: pointer;
+}
+
+button#back-button:hover {
+    background-color: #575a6d;
+}

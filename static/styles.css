@@ -1,0 +1,84 @@
+body {
+    background-color: #444654; /* Color de fondo similar al chat de GPT */
+    text-align: center; /* Centrar todo el contenido */
+    font-family: 'Roboto', sans-serif; /* Importa la fuente Roboto */
+    color: #fff;
+    margin: 7%;
+  }
+  
+  h1 {
+    margin-top: 50px; /* Espacio superior para el título */
+  }
+  
+  form {
+    margin-top: 50px; /* Espacio superior para el formulario */
+  }
+  
+  p {
+    margin-bottom: 10px; /* Espacio inferior para los párrafos */
+  }
+  
+  .lista_prod {
+    margin-top: 50px;
+  }
+
+  label {
+    display: block; /* Colocar las etiquetas en líneas separadas */
+    margin-top: 10px; /* Espacio superior para las etiquetas */
+    text-align: center; /* Centra el contenido del label */
+  }
+  
+  input[type="text"],
+  input[type="radio"],
+  input[type="submit"] {
+    width: 300px; /* Ancho de los elementos de entrada */
+    height: 40px; /* Altura de los elementos de entrada */
+    padding: 5px; /* Espacio interno de los elementos de entrada */
+    margin-top: 5px; /* Espacio superior para los elementos de entrada */
+    border: none; /* Eliminar el borde de los elementos de entrada */
+    border-radius: 5px; /* Agregar esquinas redondeadas a los elementos de entrada */
+    font-size: 16px; /* Tamaño de fuente para los elementos de entrada */
+  }
+  
+  input[type="submit"] .activado {
+    background-color: #2ecc71; /* Color de fondo del botón de envío similar al de ChatGPT */
+    color: #fff; /* Color del texto del botón de envío */
+    cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
+  }
+  
+  input[type="submit"] .activado:hover {
+    background-color: #27ae60; /* Color de fondo del botón de envío al pasar el ratón */
+  }
+
+  
+  /* Estilo adicional para el input productos_lista */
+  #productos_lista {
+    background-color: #f5f8fb; /* Color de fondo similar al chat de GPT */
+    color: #333; /* Color de texto */
+    font-size: 16px; /* Tamaño de fuente */
+    width: 45%;
+  }
+  
+  .radio-container {
+    display: flex;
+    justify-content: center; /* Centra los elementos horizontalmente */
+    align-items: center; /* Centra los elementos verticalmente */
+    height: 20%;
+  }
+  
+  .radio-item {
+    display: grid;
+    margin: 3%;
+    place-items: center;
+  }
+  
+  input[type="radio"] {
+    width: 40;
+  }
+
+  input[type="submit"] .desactivado {
+    background-color: #656984;
+    color: #464646;
+    cursor: default;
+  }
+  
