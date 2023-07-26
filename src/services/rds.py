@@ -6,16 +6,14 @@ class RDS:
     def __init__(
             self,
             host: str = 'database-superofertas-master.cooi236cxxsr.sa-east-1.rds.amazonaws.com',
-            port: int = 3306,
-            db: str = 'database-superofertas-master',
             user: str = 'admin',
-            password: str = '****'  # Fill Manually in production
+            password: str = '****',  # Fill Manually in production
+            db: str = 'database-superofertas-master'
     ):
         self.host = host
-        self.port = port
-        self.db = db
         self.user = user
         self.password = password
+        self.db = db
         self.conn = None
 
     def _connect(self):
