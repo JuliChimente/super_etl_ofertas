@@ -1,4 +1,4 @@
-from src.services.rds import RDS
+from services.rds import RDS
 import pandas as pd
 
 from selenium.webdriver.common.by import By

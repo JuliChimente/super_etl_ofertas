@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 
-from src.supermercados.supermercado import Supermercado
+from supermercados.supermercado import Supermercado
 
 
 class Dia(Supermercado):
