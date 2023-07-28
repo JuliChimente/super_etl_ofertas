@@ -97,3 +97,7 @@ class Dia(Supermercado):
             self.df_precio_mayorista.append(precio_mayorista_dict)
             self.df_precio_unit.append(precio_unit_dict)
             self.df_super.append(super_dict)
+            
+if __name__ == "__main__":
+    dia = Dia()
+    dia.recorrer_categorias()
