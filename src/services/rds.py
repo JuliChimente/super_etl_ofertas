@@ -7,7 +7,7 @@ class RDS:
             self,
             host: str = 'database-superofertas-master.cooi236cxxsr.sa-east-1.rds.amazonaws.com',
             user: str = 'admin',
-            password: str = '****',  # Fill Manually in production
+            password: str = 'a50DPmW8VECHji',  # Fill Manually in production
             db: str = 'database-superofertas-master'
     ):
         self.host = host

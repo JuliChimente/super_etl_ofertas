@@ -301,7 +301,7 @@ def dia(productos_lista):
                     try:
                         # Promo Dia %OFF
                         promo = producto.find('span',
-                                               {'class': 'vtex-product-price-1-x-savingsPercentage vtex-product-price-1-x-savingsPercentage--pdp'}).text.strip()
+                                               {'class': 'vtex-product-price-1-x-savingsPercentage vtex-product-price-1-x-savingsPercentage--plp'}).text.strip()
                     except AttributeError:
                         try:
                             # Promo Dia 2x1, 50% Off 2da U, etc.
