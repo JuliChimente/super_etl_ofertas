@@ -5,9 +5,9 @@ class RDS:
     def __init__(
             self,
             host: str = 'database-superofertas-master.cooi236cxxsr.sa-east-1.rds.amazonaws.com',
-            user: str = 'admin',
+            user: str = 'superofersudo',
             password: str = 'a50DPmW8VECHji',  # Fill Manually in production
-            db: str = 'database-superofertas-master'
+            db: str = 'master'
     ):
         self.host = host
         self.user = user
@@ -50,7 +50,7 @@ class RDS:
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-q', '--query', type=str, help='SQL Query to execute')
+    parser.add_argument('-q', '--query', type=str, help='SQL Query to execute', required=True)
     args = parser.parse_args()
 
     rds = RDS()
