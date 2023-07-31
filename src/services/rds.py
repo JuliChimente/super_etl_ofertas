@@ -1,7 +1,6 @@
 import argparse
 import pymysql
 
-
 class RDS:
     def __init__(
             self,
