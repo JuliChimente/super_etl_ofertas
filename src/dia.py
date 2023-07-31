@@ -49,6 +49,8 @@ class Dia(Supermercado):
 
     def init_driver(self, options: ChromeOptions) -> webdriver:
         options.add_argument("--start-minimized")
+        options.add_argument("--headless")
+        options.add_argument("--no-sandbox")
         return webdriver.Chrome(options=options)
 
     def extract_price(self, producto) -> str:
