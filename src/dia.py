@@ -76,6 +76,7 @@ class Dia(Supermercado):
         if 'No tiene promo' not in promo:
             precio_mayorista = self.whosale_price(precio, promo)
             precio_mayorista = precio_mayorista.replace('.', '').replace(',', '.').replace('$', '')
+            
         url = producto.find('a', {'class': 'vtex-product-summary-2-x-clearLink'})['href']
         precio = precio.replace('.', '').replace(',', '.').replace('$', '')
         super_dict = {'supermercado': supermercado}
