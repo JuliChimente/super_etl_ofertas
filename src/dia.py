@@ -11,9 +11,8 @@ class Dia(Supermercado):
     def __init__(self):
         super().__init__(
             supermercado='https://diaonline.supermercadosdia.com.ar/',
-            categorias=['electro', 'tiempo-libre', 'bebidas', 'carnes', 'frutas-y-verduras', 'lacteos', 'perfumeria',
-                        'bebes-y-ninos', 'limpieza', 'quesos-y-fiambres', 'congelados', 'panaderia-y-reposteria',
-                        'mascotas', 'hogar-y-textil']
+            categorias=['electro-hogar', 'hogar-y-deco', 'mascotas', 'bebes-y-ninos', 'limpieza', 'congelados', 'bebidas',
+                        'frescos', 'desayuno', 'almacen']
         )
         
     def whosale_price(precio, promo):
