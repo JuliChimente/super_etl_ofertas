@@ -72,8 +72,12 @@ class Dia(Supermercado):
         return promo
 
     def parse_product_info(self, producto, supermercado: str) -> dict:
-        nombre = producto.find('span',
-                                {'class': 'vtex-product-summary-2-x-productBrand vtex-product-summary-2-x-brandName t-body'}).text.strip()
+        try:
+            nombre = producto.find('span',
+                                    {'class': 'vtex-product-summary-2-x-productBrand vtex-product-summary-2-x-brandName t-body'}).text.strip()
+        except AttributeError:
+            return None
+            
         precio = self.extract_price(producto)
         promo = self.extract_promo(producto)
         if 'No tiene promo' not in promo:
@@ -86,12 +90,9 @@ class Dia(Supermercado):
            
         url = producto.find('a', {'class': 'vtex-product-summary-2-x-clearLink'})['href']
         precio = precio.replace('.', '').replace(',', '.').replace('$', '')
-        super_dict = {'supermercado': supermercado}
-        precio_unit_dict = {'precio': float(precio)} # , 'precio comunidad': float(precio) Revisar
-        precio_mayorista_dict = {'precio': precio_mayorista, 'promo': promo} # , 'precio comunidad': float(precio) Revisar
-        producto_dict = {'nombre': nombre, 'url': supermercado + url}
+        producto_info_dict = {'precio_unit': float(precio), 'precio_mayorista': precio_mayorista, 'promo': promo, 'nombre': nombre, 'url': supermercado + url}
         
-        return super_dict, precio_unit_dict, precio_mayorista_dict, producto_dict
+        return producto_info_dict
 
     def scrape_page(self, driver, supermercado: str, categoria: str, x: int) -> pd.DataFrame:
         driver.get(f'{supermercado}{categoria}?map=category-1&page={x}')
@@ -101,12 +102,16 @@ class Dia(Supermercado):
         elemento = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'span.vtex-product-price-1-x-currencyContainer')))
         productos = soup.find_all('div', 
                                     {'class': 'vtex-search-result-3-x-galleryItem vtex-search-result-3-x-galleryItem--normal vtex-search-result-3-x-galleryItem--default pa4'})[:5]
+        
         for producto in productos:
-            super_dict, precio_unit_dict, precio_mayorista_dict, producto_dict = self.parse_product_info(producto, supermercado.split('.')[1].upper())
-            self.df_productos.append(producto_dict)
-            self.df_precio_mayorista.append(precio_mayorista_dict)
-            self.df_precio_unit.append(precio_unit_dict)
-            self.df_super.append(super_dict)
+            producto_info_dict = self.parse_product_info(producto)
+            if producto_info_dict is None:
+                return None
+            self.df_productos.loc[len(self.df_productos)] = [producto_info_dict['nombre'], producto_info_dict['url']]
+            self.df_precio_mayorista.loc[len(self.df_precio_mayorista)] = [producto_info_dict['precio_mayorista'], producto_info_dict['promo']]
+            self.df_precio_unit.loc[len(self.df_precio_unit)] = [producto_info_dict['precio_unit']]
+    
+        return True
 
 if __name__ == "__main__":
     dia = Dia()

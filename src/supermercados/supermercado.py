@@ -13,22 +13,9 @@ class Supermercado(ABC):
     def __init__(self, supermercado: str, categorias: list):
         self.supermercado = supermercado
         self.categorias = categorias
-        self.df_productos = pd.DataFrame()
-        self.df_precio_mayorista = pd.DataFrame()
-        self.df_precio_unit = pd.DataFrame()
-        self.df_super = pd.DataFrame()
-
-    def cargar_super_a_db(self):
-        rds = RDS()
-
-        # Ejecutar una consulta para insertar los productos en la tabla
-        consulta = 'INSERT INTO supermercado (nombre_super) VALUES '
-
-        for producto in self.df_super:
-            consulta += str(
-                (producto['supermercado']))
-        rds.execute_query(consulta)
-        rds.disconnect()
+        self.df_productos = pd.DataFrame({'nombre': [], 'url': []})
+        self.df_precio_mayorista = pd.DataFrame({'precio_mayorista': [], 'promo': []})
+        self.df_precio_unit = pd.DataFrame({'precio_unit': []})
 
     def cargar_precio_unit_a_db(self):
         rds = RDS()
@@ -38,7 +25,7 @@ class Supermercado(ABC):
 
         for producto in self.df_precio_unit:
             consulta += str(
-                (producto['precio']))
+                (producto['precio_unit']))
         rds.execute_query(consulta)
         rds.disconnect()
         
@@ -50,7 +37,7 @@ class Supermercado(ABC):
 
         for producto in self.df_precio_mayorista:
             consulta += str(
-                (producto['precio'], producto['promo']))
+                (producto['precio_mayorista'], producto['promo']))
         rds.execute_query(consulta)
         rds.disconnect()
             
@@ -72,21 +59,18 @@ class Supermercado(ABC):
             self.ejecutar_categoria(categoria)
 
     def ejecutar_categoria(self, categoria: str):
-        encontrado = False
         x = 1
-        while not encontrado:
+        while True:
             options = ChromeOptions()
             driver = self.init_driver(options)
-            try:
-                lista_productos_categoria = self.scrape_page(driver, self.supermercado, categoria, x)
-                self.lista_productos.extend(lista_productos_categoria)
-                x += 1
-            except:
-                elemento = WebDriverWait(driver, 5).until(
-                    EC.visibility_of_element_located(
-                        (By.CSS_SELECTOR, 'div.vtex-search-result-3-x-searchNotFound')))
-                encontrado = True
+        
+            if self.scrape_page(driver, self.supermercado, categoria, x) is None:
+                break
+            
+            x += 1
 
+        self.cargar_precio_unit_a_db()
+        self.cargar_precio_mayorista_a_db()
         self.cargar_productos_a_db()
 
     @abstractmethod
