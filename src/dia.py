@@ -11,9 +11,8 @@ class Dia(Supermercado):
     def __init__(self):
         super().__init__(
             supermercado='https://diaonline.supermercadosdia.com.ar/',
-            categorias=['electro', 'tiempo-libre', 'bebidas', 'carnes', 'frutas-y-verduras', 'lacteos', 'perfumeria',
-                        'bebes-y-ninos', 'limpieza', 'quesos-y-fiambres', 'congelados', 'panaderia-y-reposteria',
-                        'mascotas', 'hogar-y-textil']
+            categorias=['electro-hogar', 'hogar-y-deco', 'mascotas', 'bebes-y-ninos', 'limpieza', 'congelados', 'bebidas',
+                        'frescos', 'desayuno', 'almacen']
         )
         
     def whosale_price(precio, promo):
@@ -76,11 +75,10 @@ class Dia(Supermercado):
         promo = self.extract_promo(producto)
         if 'No tiene promo' not in promo:
             precio_mayorista = self.whosale_price(precio, promo)
-
+            precio_mayorista = precio_mayorista.replace('.', '').replace(',', '.').replace('$', '')
         url = producto.find('a', {'class': 'vtex-product-summary-2-x-clearLink'})['href']
         precio = precio.replace('.', '').replace(',', '.').replace('$', '')
-        precio_mayorista = precio_mayorista.replace('.', '').replace(',', '.').replace('$', '')
-        super_dict = {'supermercado': supermercado.split('.')[1].upper()}
+        super_dict = {'supermercado': supermercado}
         precio_unit_dict = {'precio': float(precio)} # , 'precio comunidad': float(precio) Revisar
         precio_mayorista_dict = {'precio': float(precio_mayorista), 'promo': promo} # , 'precio comunidad': float(precio) Revisar
         producto_dict = {'nombre': nombre, 'url': supermercado + url}
