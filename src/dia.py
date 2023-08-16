@@ -81,8 +81,8 @@ class Dia(Supermercado):
         precio = precio.replace('.', '').replace(',', '.').replace('$', '')
         precio_mayorista = precio_mayorista.replace('.', '').replace(',', '.').replace('$', '')
         super_dict = {'supermercado': supermercado.split('.')[1].upper()}
-        precio_unit_dict = {'precio': float(precio), 'precio comunidad': float(precio)}
-        precio_mayorista_dict = {'precio': float(precio_mayorista), 'promo': promo, 'precio comunidad': float(precio)}
+        precio_unit_dict = {'precio': float(precio)} # , 'precio comunidad': float(precio) Revisar
+        precio_mayorista_dict = {'precio': float(precio_mayorista), 'promo': promo} # , 'precio comunidad': float(precio) Revisar
         producto_dict = {'nombre': nombre, 'url': supermercado + url}
         
         return super_dict, precio_unit_dict, precio_mayorista_dict, producto_dict

@@ -18,51 +18,52 @@ class Supermercado(ABC):
         self.df_precio_unit = pd.DataFrame()
         self.df_super = pd.DataFrame()
 
-    def cargar_productos_a_db(self):
-        rds = RDS()
-
-        # Ejecutar una consulta para insertar los productos en la tabla
-        consulta = 'INSERT INTO productos (supermercado, nombre_producto, precio_producto, promocion_producto, url_producto) VALUES '
-
-        for producto in self.df_productos:
-            consulta += str(
-                (producto['nombre'], producto['url']))
-        rds.execute_query(consulta)
-        rds.disconnect()
-
-    def cargar_precio_mayorista_a_db(self):
-        rds = RDS()
-
-        # Ejecutar una consulta para insertar los productos en la tabla
-        consulta = 'INSERT INTO productos (supermercado, nombre_producto, precio_producto, promocion_producto, url_producto) VALUES '
-
-        for producto in self.df_precio_mayorista:
-            consulta += str(
-                (producto['precio'], producto['promo'], producto['url'], producto['precio comunidad']))
-        rds.execute_query(consulta)
-        rds.disconnect()
-        
-    def cargar_precio_unit_a_db(self):
-        rds = RDS()
-
-        # Ejecutar una consulta para insertar los productos en la tabla
-        consulta = 'INSERT INTO productos (supermercado, nombre_producto, precio_producto, promocion_producto, url_producto) VALUES '
-
-        for producto in self.df_precio_unit:
-            consulta += str(
-                (producto['precio'], producto['precio comunidad']))
-        rds.execute_query(consulta)
-        rds.disconnect()
-        
     def cargar_super_a_db(self):
         rds = RDS()
 
         # Ejecutar una consulta para insertar los productos en la tabla
-        consulta = 'INSERT INTO productos (supermercado, nombre_producto, precio_producto, promocion_producto, url_producto) VALUES '
+        consulta = 'INSERT INTO supermercado (nombre_super) VALUES '
 
         for producto in self.df_super:
             consulta += str(
                 (producto['supermercado']))
+        rds.execute_query(consulta)
+        rds.disconnect()
+
+    def cargar_precio_unit_a_db(self):
+        rds = RDS()
+
+        # Ejecutar una consulta para insertar los productos en la tabla
+        consulta = 'INSERT INTO precio_unit (precio) VALUES '
+
+        for producto in self.df_precio_unit:
+            consulta += str(
+                (producto['precio']))
+        rds.execute_query(consulta)
+        rds.disconnect()
+        
+    def cargar_precio_mayorista_a_db(self):
+        rds = RDS()
+
+        # Ejecutar una consulta para insertar los productos en la tabla
+        consulta = 'INSERT INTO precio_mayorista (precio, promo) VALUES '
+
+        for producto in self.df_precio_mayorista:
+            consulta += str(
+                (producto['precio'], producto['promo']))
+        rds.execute_query(consulta)
+        rds.disconnect()
+            
+        
+    def cargar_productos_a_db(self):
+        rds = RDS()
+
+        # Ejecutar una consulta para insertar los productos en la tabla
+        consulta = 'INSERT INTO producto (producto_nombre, url) VALUES '
+
+        for producto in self.df_productos:
+            consulta += str(
+                (producto['nombre'], producto['url']))
         rds.execute_query(consulta)
         rds.disconnect()
 
