@@ -91,7 +91,7 @@ class Dia(Supermercado):
         driver.get(f'{supermercado}{categoria}?map=category-1&page={x}')
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         productos = soup.find_all('div', 
-                                    {'class': 'vtex-search-result-3-x-galleryItem vtex-search-result-3-x-galleryItem--normal vtex-search-result-3-x-galleryItem--default pa4'})
+                                    {'class': 'vtex-search-result-3-x-galleryItem vtex-search-result-3-x-galleryItem--normal vtex-search-result-3-x-galleryItem--default pa4'})[:5]
         for producto in productos:
             super_dict, precio_unit_dict, precio_mayorista_dict, producto_dict = self.parse_product_info(producto, supermercado.split('.')[1].upper())
             self.df_productos.append(producto_dict)
