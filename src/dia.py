@@ -2,6 +2,9 @@ import re
 import pandas as pd
 from bs4 import BeautifulSoup
 from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 
 from supermercados.supermercado import Supermercado
@@ -89,6 +92,9 @@ class Dia(Supermercado):
     def scrape_page(self, driver, supermercado: str, categoria: str, x: int) -> pd.DataFrame:
         driver.get(f'{supermercado}{categoria}?map=category-1&page={x}')
         soup = BeautifulSoup(driver.page_source, 'html.parser')
+        # Esperar hasta que el elemento sea visible
+        wait = WebDriverWait(driver, 5)
+        elemento = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'span.vtex-product-price-1-x-currencyContainer')))
         productos = soup.find_all('div', 
                                     {'class': 'vtex-search-result-3-x-galleryItem vtex-search-result-3-x-galleryItem--normal vtex-search-result-3-x-galleryItem--default pa4'})[:5]
         for producto in productos:
