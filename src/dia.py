@@ -104,7 +104,7 @@ class Dia(Supermercado):
                                     {'class': 'vtex-search-result-3-x-galleryItem vtex-search-result-3-x-galleryItem--normal vtex-search-result-3-x-galleryItem--default pa4'})[:5]
         
         for producto in productos:
-            producto_info_dict = self.parse_product_info(producto)
+            producto_info_dict = self.parse_product_info(producto, supermercado)
             if producto_info_dict is None:
                 return None
             self.df_productos.loc[len(self.df_productos)] = [producto_info_dict['nombre'], producto_info_dict['url']]
