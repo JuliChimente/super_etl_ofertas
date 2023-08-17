@@ -23,9 +23,8 @@ class Supermercado(ABC):
         # Ejecutar una consulta para insertar los productos en la tabla
         consulta = 'INSERT INTO precio_unit (precio) VALUES '
 
-        for producto in self.df_precio_unit:
-            consulta += str(
-                (producto['precio_unit']))
+        for index, producto in self.df_precio_unit.iterrows():
+            consulta += str(producto['precio_unit'])
         rds.execute_query(consulta)
         rds.disconnect()
         
@@ -35,9 +34,9 @@ class Supermercado(ABC):
         # Ejecutar una consulta para insertar los productos en la tabla
         consulta = 'INSERT INTO precio_mayorista (precio, promo) VALUES '
 
-        for producto in self.df_precio_mayorista:
-            consulta += str(
-                (producto['precio_mayorista'], producto['promo']))
+        for index, producto in self.df_precio_mayorista.iterrows():
+            consulta += str(producto['precio_mayorista'], producto['promo'])
+
         rds.execute_query(consulta)
         rds.disconnect()
             
@@ -48,9 +47,9 @@ class Supermercado(ABC):
         # Ejecutar una consulta para insertar los productos en la tabla
         consulta = 'INSERT INTO producto (producto_nombre, url) VALUES '
 
-        for producto in self.df_productos:
-            consulta += str(
-                (producto['nombre'], producto['url']))
+        for index, producto in self.df_productos.iterrows():
+            consulta += str(producto['nombre'], producto['url'])
+            
         rds.execute_query(consulta)
         rds.disconnect()
 
