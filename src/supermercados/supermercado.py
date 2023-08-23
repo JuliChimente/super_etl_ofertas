@@ -19,13 +19,20 @@ class Supermercado(ABC):
 
     def cargar_precio_unit_a_db(self):
         rds = RDS()
+        
+        # Tamaño del lote
+        tamanio_lote = 1000
 
-        # Ejecutar una consulta para insertar los productos en la tabla
-        consulta = 'INSERT INTO precio_unit (precio) VALUES '
-
-        for index, producto in self.df_precio_unit.iterrows():
-            consulta += str(producto['precio_unit'])
-        rds.execute_query(consulta)
+        # Iterar sobre el DataFrame en lotes y insertar los datos en la base de datos
+        for i in range(0, len(self.df_precio_unit), tamanio_lote):
+            batch = self.df_precio_unit[i:i + tamanio_lote]
+            values = ', '.join([f"({row['precio_unit']}" for _, row in batch.iterrows()])
+            
+            # Crear la consulta SQL de inserción en lote
+            query = f"INSERT INTO precio_unit (precio) VALUES {values}"
+            
+            # Ejecutar la consulta
+            rds.execute_query(query)
         rds.disconnect()
         
     def cargar_precio_mayorista_a_db(self):
@@ -44,7 +51,7 @@ class Supermercado(ABC):
             
             # Ejecutar la consulta
             rds.execute_query(query)
-            rds.disconnect()
+        rds.disconnect()
             
         
     def cargar_productos_a_db(self):
@@ -63,7 +70,7 @@ class Supermercado(ABC):
             
             # Ejecutar la consulta
             rds.execute_query(query)
-            rds.disconnect()
+        rds.disconnect()
 
     def recorrer_categorias(self):
         for categoria in self.categorias:
