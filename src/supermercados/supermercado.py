@@ -50,14 +50,20 @@ class Supermercado(ABC):
     def cargar_productos_a_db(self):
         rds = RDS()
 
-        # Ejecutar una consulta para insertar los productos en la tabla
-        consulta = 'INSERT INTO producto (producto_nombre, url) VALUES '
+        # Tamaño del lote
+        tamanio_lote = 1000
 
-        for index, producto in self.df_productos.iterrows():
-            consulta += str(producto['nombre'], producto['url'])
+        # Iterar sobre el DataFrame en lotes y insertar los datos en la base de datos
+        for i in range(0, len(self.df_productos), tamanio_lote):
+            batch = self.df_productos[i:i + tamanio_lote]
+            values = ', '.join([f"({row['nombre']}, '{row['url']}')" for _, row in batch.iterrows()])
             
-        rds.execute_query(consulta)
-        rds.disconnect()
+            # Crear la consulta SQL de inserción en lote
+            query = f"INSERT INTO producto (producto_nombre, url) VALUES {values}"
+            
+            # Ejecutar la consulta
+            rds.execute_query(query)
+            rds.disconnect()
 
     def recorrer_categorias(self):
         for categoria in self.categorias:
