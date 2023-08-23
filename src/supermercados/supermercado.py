@@ -31,14 +31,20 @@ class Supermercado(ABC):
     def cargar_precio_mayorista_a_db(self):
         rds = RDS()
 
-        # Ejecutar una consulta para insertar los productos en la tabla
-        consulta = 'INSERT INTO precio_mayorista (precio, promo) VALUES '
+        # Tamaño del lote
+        tamanio_lote = 1000
 
-        for index, producto in self.df_precio_mayorista.iterrows():
-            consulta += str(producto['precio_mayorista'], producto['promo'])
-
-        rds.execute_query(consulta)
-        rds.disconnect()
+        # Iterar sobre el DataFrame en lotes y insertar los datos en la base de datos
+        for i in range(0, len(self.df_precio_mayorista), tamanio_lote):
+            batch = self.df_precio_mayorista[i:i + tamanio_lote]
+            values = ', '.join([f"({row['precio_mayorista']}, '{row['promo']}')" for _, row in batch.iterrows()])
+            
+            # Crear la consulta SQL de inserción en lote
+            query = f"INSERT INTO precio_mayorista (precio, promo) VALUES {values}"
+            
+            # Ejecutar la consulta
+            rds.execute_query(query)
+            rds.disconnect()
             
         
     def cargar_productos_a_db(self):
