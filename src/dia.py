@@ -58,6 +58,7 @@ class Dia(Supermercado):
         # Precio con/sin % descuento
         precio = producto.find('span',
                                 {'class': 'vtex-product-price-1-x-currencyContainer'}).text.strip()
+        print(f'Precio Producto: {precio}')
         return precio
     
     def extract_promo(self, producto) -> str:
@@ -69,12 +70,14 @@ class Dia(Supermercado):
         except AttributeError:
                     promo = 'No tiene promo'
                     
+        print(f'Promo: {promo}')
         return promo
 
     def parse_product_info(self, producto, supermercado: str) -> dict:
         try:
             nombre = producto.find('span',
                                     {'class': 'vtex-product-summary-2-x-productBrand vtex-product-summary-2-x-brandName t-body'}).text.strip()
+            print(f'Nombre Producto: {nombre}')
         except AttributeError:
             return None
             
@@ -87,30 +90,38 @@ class Dia(Supermercado):
         else:
             precio_mayorista = "NULL"
             promo = "NULL"
+        
+        print(f'Precio Mayorista: {[precio_mayorista]}')   
            
         url = producto.find('a', {'class': 'vtex-product-summary-2-x-clearLink'})['href']
+        print(f'URL Producto: {url}')
         precio = precio.replace('.', '').replace(',', '.').replace('$', '')
         producto_info_dict = {'precio_unit': float(precio), 'precio_mayorista': precio_mayorista, 'promo': promo, 'nombre': nombre, 'url': supermercado + url}
+        
+        print(f'Diccionario de productos: \n{producto_info_dict}')
         
         return producto_info_dict
 
     def scrape_page(self, driver, supermercado: str, categoria: str, x: int) -> pd.DataFrame:
-        driver.get(f'{supermercado}{categoria}?map=category-1&page={x}')
+        driver.get(f'{supermercado}{categoria}?page={x}')
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         # Esperar hasta que el elemento sea visible
         wait = WebDriverWait(driver, 5)
         elemento = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'span.vtex-product-price-1-x-currencyContainer')))
         productos = soup.find_all('div', 
                                     {'class': 'vtex-search-result-3-x-galleryItem vtex-search-result-3-x-galleryItem--normal vtex-search-result-3-x-galleryItem--default pa4'})[:5]
-        
+
         for producto in productos:
+            print(f'Producto en {categoria}: \n{producto}')
             producto_info_dict = self.parse_product_info(producto, supermercado)
             if producto_info_dict is None:
                 return None
             self.df_productos.loc[len(self.df_productos)] = [producto_info_dict['nombre'], producto_info_dict['url']]
             self.df_precio_mayorista.loc[len(self.df_precio_mayorista)] = [producto_info_dict['precio_mayorista'], producto_info_dict['promo']]
             self.df_precio_unit.loc[len(self.df_precio_unit)] = [producto_info_dict['precio_unit']]
-    
+        print(f'DataFrame de los productos: \n{self.df_productos}')
+        print(f'DataFrame de Precios Minoristas: \n{self.df_precio_unit}')
+        print(f'Dataframe de los Precios Mayoristas: \n{self.df_precio_mayorista}')
         return True
 
 if __name__ == "__main__":
